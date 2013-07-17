@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	android:id="@+id/widget33"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+<TextView
+	android:id="@+id/widget34"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="IP Address:" />
+<RelativeLayout
+	android:id="@+id/widget37"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
+  <EditText
+	android:id="@+id/text_ipaddr_1"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+  android:inputType="number"
+	android:text="1"
+	android:textSize="18sp"
+	android:layout_alignParentTop="true" />
+  <TextView
+	android:id="@+id/widget46"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_alignBottom="@+id/text_ipaddr_1"
+	android:text="."
+	android:layout_toRightOf="@+id/text_ipaddr_1" />
+  <EditText
+	android:id="@+id/text_ipaddr_2"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+  android:inputType="number"
+	android:text="1"
+	android:textSize="18sp"
+	android:layout_alignParentTop="true"
+	android:layout_toRightOf="@+id/widget46" />
+  <TextView
+	android:id="@+id/widget44"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_alignBottom="@+id/text_ipaddr_2"
+	android:text="."
+	android:layout_toRightOf="@+id/text_ipaddr_2" />
+  <EditText
+	android:id="@+id/text_ipaddr_3"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+  android:inputType="number"
+	android:text="1"
+	android:textSize="18sp"
+	android:layout_alignParentTop="true"
+	android:layout_toRightOf="@+id/widget44" />
+  <TextView
+	android:id="@+id/widget42"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_alignBottom="@+id/text_ipaddr_3"
+	android:text="."
+	android:layout_toRightOf="@+id/text_ipaddr_3" />
+  <EditText
+	android:id="@+id/text_ipaddr_4"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+  android:inputType="number"
+	android:text="1"
+	android:textSize="18sp"
+	android:layout_alignParentTop="true"
+	android:layout_toRightOf="@+id/widget42" />
+</RelativeLayout>
+<TextView
+	android:id="@+id/widget48"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="Port:" />
+<EditText
+	android:id="@+id/text_port"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+  android:inputType="number"
+	android:text="1"
+	android:textSize="18sp" />
+<TextView
+	android:id="@+id/widget50"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="Packet Size:" />
+<EditText
+	android:id="@+id/text_size"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+  android:inputType="number"
+	android:text="1"
+	android:textSize="18sp" />
+<TextView
+	android:id="@+id/widget50"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="Packets sent:" />
+<EditText
+	android:id="@+id/text_count"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+  android:inputType="number"
+	android:text="1"
+	android:textSize="18sp" />
+<TextView
+	android:id="@+id/widget50"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="Mode:" />
+<RadioGroup
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:orientation="horizontal">
+  <RadioButton android:id="@+id/radio_tcp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="TCP" />
+  <RadioButton android:id="@+id/radio_udp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="UDP" />
+</RadioGroup>
+<Button
+	android:id="@+id/button_start"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="Start Test"
+	android:layout_gravity="center_horizontal" />
+</LinearLayout>
+
