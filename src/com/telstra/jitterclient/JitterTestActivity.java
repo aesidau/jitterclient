@@ -58,6 +58,8 @@ public class JitterTestActivity extends Activity
       et.setText("" + MAX_COUNT);
       rb = (RadioButton) findViewById(R.id.radio_tcp);
       rb.setChecked(true);
+      et = (EditText) findViewById(R.id.text_interval);
+      et.setText("" + SLEEP_INTERVAL);
   }
 
   public void onClick(View v)
@@ -65,7 +67,7 @@ public class JitterTestActivity extends Activity
     EditText et;
     RadioButton rb;
     byte ipaddr[];
-    int port, packetSize, maxCount;
+    int port, packetSize, maxCount, sleepInterval;
     boolean tcp_mode;
 
     try
@@ -92,14 +94,17 @@ public class JitterTestActivity extends Activity
       rb = (RadioButton) findViewById(R.id.radio_tcp);
       tcp_mode = rb.isChecked();
 
-      startTest(ipaddr, port, packetSize, maxCount, tcp_mode);
+      et = (EditText) findViewById(R.id.text_interval);
+      sleepInterval = Integer.parseInt(et.getText().toString());
+
+      startTest(ipaddr, port, packetSize, maxCount, tcp_mode, sleepInterval);
     } catch (NumberFormatException nfe)
     {
     }
   }
 
   public void startTest(byte[] ipAddr, int port, int packetSize, int maxCount,
-                  boolean tcp_mode)
+                  boolean tcp_mode, int sleepInterval)
   {
     //byte ipAddress[] = {127, 0, 0, 1}; // localhost
     //byte ipAddress[] = {(byte)141, (byte)168, 32, 18}; // neper.cto.in.telstra.com.au
@@ -116,7 +121,7 @@ public class JitterTestActivity extends Activity
 
     millisBase = System.currentTimeMillis();
     buffShort = new byte[2];
-    buffLong = new byte[PACKET_SIZE];
+    buffLong = new byte[packetSize];
     Log.v(TAG, "Sending message '" + message + "':");
     try
     {
@@ -149,8 +154,8 @@ public class JitterTestActivity extends Activity
                 lenMessage = buffLong.length - 2;
         }
         System.arraycopy(buffMessage, 0, buffLong, 2, lenMessage);
-        buffShort[0] = (byte)((PACKET_SIZE - 2) % 256);
-        buffShort[1] = (byte)((PACKET_SIZE - 2) / 256);
+        buffShort[0] = (byte)((packetSize - 2) % 256);
+        buffShort[1] = (byte)((packetSize - 2) / 256);
         System.arraycopy(buffShort, 0, buffLong, 0, 2);
         // Send it!
         if (tcp_mode)
@@ -165,7 +170,7 @@ public class JitterTestActivity extends Activity
         }
         try
         {
-          Thread.sleep(SLEEP_INTERVAL);
+          Thread.sleep(sleepInterval);
         } catch (InterruptedException ie)
         {
           // just ignore
