@@ -15,6 +15,7 @@ import android.widget.Button; // API level 1
 import android.view.View;
 import android.widget.EditText; // API level 1
 import android.widget.RadioButton; // API level 1
+import android.os.Process; // API level 1
 
 public class JitterTestActivity extends Activity
   implements View.OnClickListener
@@ -27,6 +28,7 @@ public class JitterTestActivity extends Activity
   public static int PACKET_SIZE = 50;
   public static int MAX_COUNT = 100;
   public static int SLEEP_INTERVAL = 20; // in ms
+  public static int PRIORITY = 0;
 
   //public static final int MENU_ITEM_START = Menu.FIRST;
 
@@ -60,6 +62,8 @@ public class JitterTestActivity extends Activity
       rb.setChecked(true);
       et = (EditText) findViewById(R.id.text_interval);
       et.setText("" + SLEEP_INTERVAL);
+      et = (EditText) findViewById(R.id.text_priority);
+      et.setText("" + PRIORITY);
   }
 
   public void onClick(View v)
@@ -67,7 +71,7 @@ public class JitterTestActivity extends Activity
     EditText et;
     RadioButton rb;
     byte ipaddr[];
-    int port, packetSize, maxCount, sleepInterval;
+    int port, packetSize, maxCount, sleepInterval, priority;
     boolean tcp_mode;
 
     try
@@ -97,14 +101,17 @@ public class JitterTestActivity extends Activity
       et = (EditText) findViewById(R.id.text_interval);
       sleepInterval = Integer.parseInt(et.getText().toString());
 
-      startTest(ipaddr, port, packetSize, maxCount, tcp_mode, sleepInterval);
+      et = (EditText) findViewById(R.id.text_priority);
+      priority = Integer.parseInt(et.getText().toString());
+
+      startTest(ipaddr, port, packetSize, maxCount, tcp_mode, sleepInterval, priority);
     } catch (NumberFormatException nfe)
     {
     }
   }
 
   public void startTest(byte[] ipAddr, int port, int packetSize, int maxCount,
-                  boolean tcp_mode, int sleepInterval)
+                  boolean tcp_mode, int sleepInterval, int priority)
   {
     //byte ipAddress[] = {127, 0, 0, 1}; // localhost
     //byte ipAddress[] = {(byte)141, (byte)168, 32, 18}; // neper.cto.in.telstra.com.au
@@ -118,6 +125,16 @@ public class JitterTestActivity extends Activity
     OutputStream sockOut = null;
     DatagramSocket udp_sock = null;
     DatagramPacket udp_pack = null;
+    int old_priority;
+
+    try
+    {
+      old_priority = Process.getThreadPriority(Process.myTid());
+    } catch (IllegalArgumentException iae)
+    {
+      // shouldn't happen since we've got the tid from Process.myTid()
+      old_priority = 0;
+    }
 
     millisBase = System.currentTimeMillis();
     buffShort = new byte[2];
@@ -140,6 +157,7 @@ public class JitterTestActivity extends Activity
         udp_sock = new DatagramSocket();
         Log.v(TAG, "UDP Buffer size was = " + udp_sock.getSendBufferSize());
       }
+      Process.setThreadPriority(priority);
       for (count = 0; count < maxCount; count++)
       {
         Log.v(TAG, "Sending message #" + count);
@@ -190,5 +208,7 @@ public class JitterTestActivity extends Activity
     {
       ioe.printStackTrace();
     }
+    // Return priority level to what it was before
+    Process.setThreadPriority(old_priority);
   }
 }
