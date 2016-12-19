@@ -1,4 +1,4 @@
-package com.telstra.jitterclient;
+package au.id.aes.jitterclient;
 
 import java.net.InetAddress; // API level 1
 import java.net.Socket; // API level 1
@@ -114,7 +114,6 @@ public class JitterTestActivity extends Activity
                   boolean tcp_mode, int sleepInterval, int priority)
   {
     //byte ipAddress[] = {127, 0, 0, 1}; // localhost
-    //byte ipAddress[] = {(byte)141, (byte)168, 32, 18}; // neper.cto.in.telstra.com.au
     //byte ipAddress[] = {(byte)10, (byte)0, (byte)0, (byte)88}; 
     //byte ipAddress[] = {(byte)69, (byte)5, (byte)7, (byte)210}; // www.aes.id.au
     byte buffShort[], buffLong[], buffMessage[];

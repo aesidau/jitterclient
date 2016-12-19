@@ -15,10 +15,11 @@
 
 #define SERVER_PORT 7000
 //#define SERVER_ADDR "192.168.1.12"
-#define SERVER_ADDR "127.0.0.1"
-#define PACKET_SIZE 50
+#define SERVER_ADDR "203.41.92.24"
+//#define SERVER_ADDR "127.0.0.1"
+#define PACKET_SIZE 80
 #define MAX_COUNT 1000
-#define SLEEP_INTERVAL 20
+#define SLEEP_INTERVAL 10
 #define PRIORITY 0
 
 //#define DEBUG
@@ -35,7 +36,7 @@ int main(int argc, char *argv[])
   long millis;
   int sockfd, count, flag;
   struct sockaddr_in addrServ;
-  char buffLong[PACKET_SIZE], *label = "Connecting to: ";
+  char buffLong[PACKET_SIZE], *label = "Connecting to:";
 
   clock_gettime(CLOCKTYPE, &timeBase);
 
